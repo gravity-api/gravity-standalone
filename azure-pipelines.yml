@@ -41,12 +41,13 @@ steps:
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/$(Build.BuildNumber)'
     modifyOutputPath: false
 
-- task: PublishBuildArtifacts@1
-  displayName: publish artifact to container
+- task: DotNetCoreCLI@2
+  displayName: publish files to $(build.artifactstagingdirectory)/$(Build.BuildNumber)
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/$(Build.BuildNumber)'
 
 - task: CmdLine@2
   displayName: copy files to a shared one-drive location
