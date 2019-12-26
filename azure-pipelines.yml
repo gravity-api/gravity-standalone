@@ -34,9 +34,21 @@ steps:
     testRunTitle: 'Automation Testing --- $(Build.BuildNumber)'
 
 - task: DotNetCoreCLI@2
-  displayName: create package
+  displayName: publish files to $(build.artifactstagingdirectory)/$(Build.BuildNumber)
   inputs:
-    command: 'pack'
-    packagesToPack: '**/!(*[Tt]ests)/*.csproj'
-    versioningScheme: 'byBuildNumber'
-    verbosityPack: 'Diagnostic'
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/$(Build.BuildNumber)'
+    modifyOutputPath: false
+
+- task: PublishBuildArtifacts@1
+  displayName: publish artifact to container
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: CmdLine@2
+  displayName: copy files to a shared one-drive location
+  inputs:
+    script: 'xcopy /y $(build.artifactstagingdirectory)\$(Build.BuildNumber)\$(Build.BuildNumber).zip "D:\OneDrive\gravity-console\"'
