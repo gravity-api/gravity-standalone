@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "169a8999-0368-4844-9894-1f6c54971f3f",
+		"name": "gravity-standalone",
+		"description": "Basic samples to execute automation requests against Gravity.Standalone web API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a2e6123-9b96-48b1-9bad-6894e477e299",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{service-address}}/api/orbit",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"orbit"
+					]
+				},
+				"description": "Gets the status of this service (if it is running or if there is a problem)."
+			},
+			"response": []
+		},
+		{
+			"name": "web-automation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Authentication\": {\r\n    \"Password\": \"myPass\",\r\n    \"UserName\": \"myUser@mail.com\"\r\n  },\r\n  \"EngineConfiguration\": {\r\n    \"ElementSearchingTimeout\": 3000,\r\n    \"PageLoadTimeout\": 60000\r\n  },\r\n  \"DriverParams\": \"{'Driver':'ChromeDriver','DriverBinaries':'.'}\",\r\n  \"Actions\": [\r\n    {\r\n      \"ActionType\": \"GoToUrl\",\r\n      \"Argument\": \"https://www.google.com\"\r\n    },\r\n    {\r\n      \"ActionType\": \"SendKeys\",\r\n      \"ElementToActOn\": \"//input[@name='q']\",\r\n      \"Argument\": \"automation\"\r\n    },\r\n    {\r\n      \"ActionType\": \"Click\",\r\n      \"ElementToActOn\": \"//ul[@role='listbox']/li\"\r\n    },\r\n    {\r\n      \"ActionType\": \"CloseBrowser\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{service-address}}/api/orbit",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"orbit"
+					]
+				},
+				"description": "Executes the provided web automation sequence, based on actions, configuration and driver parameters provided. The request body is a WebAutomation data contract."
+			},
+			"response": []
+		},
+		{
+			"name": "actions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{service-address}}/api/kb/actions",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"kb",
+						"actions"
+					]
+				},
+				"description": "Gets a list of all actions which were loaded under the current domain or gets a knowledge base of a specific action, provided it's name."
+			},
+			"response": []
+		},
+		{
+			"name": "actions-name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{service-address}}/api/kb/actions/Click",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"kb",
+						"actions",
+						"Click"
+					]
+				},
+				"description": "Gets a list of all actions which were loaded under the current domain or gets a knowledge base of a specific action, provided it's name."
+			},
+			"response": []
+		},
+		{
+			"name": "macros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{service-address}}/api/kb/macros",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"kb",
+						"macros"
+					]
+				},
+				"description": "Gets a list of all macros which were loaded under the current domain or gets a knowledge base of a specific macro, provided it's name."
+			},
+			"response": []
+		},
+		{
+			"name": "macros-name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{service-address}}/api/kb/macros/date",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"kb",
+						"macros",
+						"date"
+					]
+				},
+				"description": "Gets a list of all macros which were loaded under the current domain or gets a knowledge base of a specific macro, provided it's name."
+			},
+			"response": []
+		},
+		{
+			"name": "locators",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{service-address}}/api/kb/locators",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"kb",
+						"locators"
+					]
+				},
+				"description": "Gets a list of all locators which were loaded under the current domain."
+			},
+			"response": []
+		},
+		{
+			"name": "sources",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{service-address}}/api/kb/sources",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"kb",
+						"sources"
+					]
+				},
+				"description": "Gets a list of all data source types which were loaded under the current domain."
+			},
+			"response": []
+		},
+		{
+			"name": "contracts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{service-address}}/api/kb/contracts",
+					"host": [
+						"{{service-address}}"
+					],
+					"path": [
+						"api",
+						"kb",
+						"contracts"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "384391a8-38af-4688-acab-74da62dcf999",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b2c66df0-4280-40ab-8db1-be8e6453a99d",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "87014121-0b00-4b24-9f07-36d70b520bb0",
+			"key": "service-address",
+			"value": "http://localhost:1313",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
