@@ -7,6 +7,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  buildNumber: $(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
 
 steps:
 - task: DotNetCoreCLI@2
@@ -62,8 +63,8 @@ steps:
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'userSpecifiedTag'
-    tag: 'v$(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)'
-    title: 'Production v$(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)'
+    tag: 'v$(buildNumber)'
+    title: 'Production v$(buildNumber)'
     releaseNotesSource: 'inline'
     assets: '$(build.artifactstagingdirectory)\$(Build.BuildNumber)\$(Build.BuildNumber).zip'
     changeLogCompareToRelease: 'lastFullRelease'
