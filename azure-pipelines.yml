@@ -7,6 +7,9 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  buildVersion: $(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
+  buildArtifact: $(build.artifactstagingdirectory)/$(Build.BuildNumber)/$(Build.BuildNumber).zip
+  oneDriveLocation: "D:/OneDrive/gravity-console/"
 
 steps:
 - task: DotNetCoreCLI@2
@@ -52,7 +55,7 @@ steps:
 - task: CmdLine@2
   displayName: copy files to a shared one-drive location
   inputs:
-    script: 'xcopy /y $(build.artifactstagingdirectory)\$(Build.BuildNumber)\$(Build.BuildNumber).zip "D:\OneDrive\gravity-console\"'
+    script: 'xcopy /y $(buildArtifact) $(oneDriveLocation)'
 
 - task: GitHubRelease@1
   displayName: 'create tag'
@@ -62,9 +65,9 @@ steps:
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'userSpecifiedTag'
-    tag: 'v$(Build.BuildNumber)'
-    title: 'Production v$(Build.BuildNumber)'
+    tag: 'v$(buildVersion)'
+    title: 'Production v$(buildVersion)'
     releaseNotesSource: 'inline'
-    assets: '$(Build.ArtifactStagingDirectory)/*.zip'
+    assets: '$(buildArtifact)'
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
