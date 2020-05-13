@@ -55,7 +55,7 @@ steps:
     targetType: 'inline'
     script: |
       # setup
-      [regex]$pattern = '(?<=Gravity.Standalone.)(\d+.?)+'
+      [regex]$pattern = '(\d+.?)+'
       $version        = $pattern.Matches('$(Build.BuildNumber)') | foreach-object {$_.Value}      
       # set value
       Write-Host "##vso[task.setvariable variable=buildVersion]$version"
