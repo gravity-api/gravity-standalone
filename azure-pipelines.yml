@@ -59,7 +59,6 @@ steps:
       $version        = $pattern.Matches('$(Build.BuildNumber)') | foreach-object {$_.Value}      
       # set value
       Write-Host "##vso[task.setvariable variable=buildVersion]$version"
-    pwsh: true
 
 - task: GitHubRelease@1
   displayName: 'create tag'
