@@ -1,6 +1,6 @@
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
 
-name: $(project.package).$(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
+name: Gravity.Standalone.$(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
 
 pool:
   name: Default
@@ -53,3 +53,17 @@ steps:
   displayName: copy files to a shared one-drive location
   inputs:
     script: 'xcopy /y $(build.artifactstagingdirectory)\$(Build.BuildNumber)\$(Build.BuildNumber).zip "D:\OneDrive\gravity-console\"'
+
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'GitHub connection - Gravity API'
+    repositoryName: 'gravity-api/gravity-standalone'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    tagPattern: 'v$(Build.BuildNumber)'
+    title: 'Production v$(Build.BuildNumber)'
+    releaseNotesSource: 'inline'
+    assets: '$(Build.ArtifactStagingDirectory)/*.zip'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
