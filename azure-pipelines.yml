@@ -68,3 +68,4 @@ steps:
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
     tag: 'v$(Build.BuildNumber)'
+    tagPattern: 'v*'
