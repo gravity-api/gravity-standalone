@@ -8,7 +8,7 @@ pool:
 variables:
   buildConfiguration: 'Release'
   buildVersion: $(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
-  buildArtifact: $(build.artifactstagingdirectory)\\$(Build.BuildNumber)\\$(Build.BuildNumber).zip
+  buildArtifact: '$(build.artifactstagingdirectory)\$(Build.BuildNumber)\$(Build.BuildNumber).zip'
   oneDriveLocation: 'D:\OneDrive\gravity-console\'
 
 steps:
