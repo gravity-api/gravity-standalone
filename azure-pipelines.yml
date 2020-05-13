@@ -7,7 +7,6 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  buildVersion: ''
 
 steps:
 - task: DotNetCoreCLI@2
@@ -50,19 +49,17 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: CmdLine@2
-  displayName: copy files to a shared one-drive location
+- task: PowerShell@2
+  displayName: 'parse build version for GitHub tag'
   inputs:
-    script: 'xcopy /y $(build.artifactstagingdirectory)\$(Build.BuildNumber)\$(Build.BuildNumber).zip D:\OneDrive\gravity-console\'
-
-- powershell: |
-   # setup
-   [regex]$pattern = '(\d+.?)+'
-          $version = $pattern.Matches('Gravity.Standalone.2020.1.6.1') | foreach-object {$_.Value}
-
-   # set value
-   Write-Host "##vso[task.setvariable variable=buildVersion]$version"
-  displayName: parse build version for GitHub tag
+    targetType: 'inline'
+    script: |
+      # setup
+      [regex]$pattern = '(?<=Gravity.Standalone.)(\d+.?)+'
+      $version        = $pattern.Matches('$(Build.BuildNumber)') | foreach-object {$_.Value}      
+      # set value
+      Write-Host "##vso[task.setvariable variable=buildVersion]$version"
+    pwsh: true
 
 - task: GitHubRelease@1
   displayName: 'create tag'
@@ -72,8 +69,8 @@ steps:
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'userSpecifiedTag'
-    tag: 'v$(buildNumber)'
-    title: 'Production v$(buildNumber)'
+    tag: 'v$(buildVersion)'
+    title: 'Production v$(buildVersion)'
     releaseNotesSource: 'inline'
     assets: '$(build.artifactstagingdirectory)\$(Build.BuildNumber)\$(Build.BuildNumber).zip'
     changeLogCompareToRelease: 'lastFullRelease'

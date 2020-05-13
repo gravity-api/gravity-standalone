@@ -1,7 +1,7 @@
 # gravity-standalone
 Standalone implementation of Gravity API back-end on ASP.NET Core. The service can run on Windows, Linux, MacOS.  
 
-Artifacts Location: <https://1drv.ms/f/s!AmRY2pH37JevdRPMYRvBV2QZgLs>
+Artifacts Location: <https://github.com/gravity-api/gravity-standalone/releases>
 
 ## Run the Service
 You must have dotnet core installed on your machine you can download it here:
