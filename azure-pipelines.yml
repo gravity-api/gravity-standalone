@@ -61,7 +61,7 @@ steps:
       Write-Host "##vso[task.setvariable variable=buildVersion]$version"
 
 - task: GitHubRelease@1
-  displayName: 'create tag'
+  displayName: 'create GitHub tag'
   inputs:
     gitHubConnection: 'GitHub connection - Gravity API'
     repositoryName: 'gravity-api/gravity-standalone'
